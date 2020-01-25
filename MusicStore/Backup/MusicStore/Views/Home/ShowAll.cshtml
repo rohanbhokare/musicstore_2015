@@ -1,0 +1,24 @@
+﻿@using MusicStore.Models;
+@model IEnumerable<Album>
+
+
+@{
+    ViewBag.Title = "ShowAll";
+}
+
+<h2>All Music Album available in the store</h2>
+<div>
+     @{
+        foreach(MusicStore.Models.Album item in Model)
+        {
+            <div style="padding:10px;float:left;text-align:center;">
+            <a href="/Home/Details/@item.AlbumId">
+                <img src="~/Images/images.jpg" width="150px" height="80px" border="1" /><br />
+                <span>@item.Title</span>
+
+           </a>            
+           </div>
+        }
+    }
+
+</div>

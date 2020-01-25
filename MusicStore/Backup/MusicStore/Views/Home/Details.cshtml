@@ -1,0 +1,28 @@
+﻿
+@using MusicStore.Models;
+@model Album
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>Album</legend>
+    <img src="~/Images/images.jpg" width="150px" height="80px" border="1" /><br />
+    <span><b>Album Title   : </b>@Model.Title </span><br />
+    <span><b>Catogary Name :</b>@Model.CategoryName</span><br />
+    <span><b>Artist Name :</b>@Model.ArtistName</span><br />
+    <span><b>Price :</b>@Model.UnitPrice</span><br />
+    @using(Html.BeginForm("Index","ShoppingCart",FormMethod.Post))
+    {
+    @Html.Hidden("id",Model.AlbumId)
+        <b>
+    @Html.Label("Quantity :")</b>
+    @Html.TextBox("qty", 1, new {@size="2" })
+        <br />
+    <input type="submit" value="Add to Cart" name="sb1" />
+    }
+</fieldset>
+    

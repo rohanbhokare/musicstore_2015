@@ -1,0 +1,121 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MusicStoreDbModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+  <EntityContainer Name="MusicStoreDbEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Albums" EntityType="MusicStoreDbModel.Album" />
+    <EntitySet Name="Carts" EntityType="MusicStoreDbModel.Cart" />
+    <EntitySet Name="OrderDetails" EntityType="MusicStoreDbModel.OrderDetail" />
+    <EntitySet Name="Orders" EntityType="MusicStoreDbModel.Order" />
+    <EntitySet Name="sysdiagrams" EntityType="MusicStoreDbModel.sysdiagram" />
+    <AssociationSet Name="FK__Cart__AlbumId__1CF15040" Association="MusicStoreDbModel.FK__Cart__AlbumId__1CF15040">
+      <End Role="Album" EntitySet="Albums" />
+      <End Role="Cart" EntitySet="Carts" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderDeta__Album__22AA2996" Association="MusicStoreDbModel.FK__OrderDeta__Album__22AA2996">
+      <End Role="Album" EntitySet="Albums" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__OrderDeta__Order__21B6055D" Association="MusicStoreDbModel.FK__OrderDeta__Order__21B6055D">
+      <End Role="Orders" EntitySet="Orders" />
+      <End Role="OrderDetails" EntitySet="OrderDetails" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Album">
+    <Key>
+      <PropertyRef Name="AlbumId" />
+    </Key>
+    <Property Name="AlbumId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="CategoryName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="ArtistName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="UnitPrice" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Carts" Relationship="MusicStoreDbModel.FK__Cart__AlbumId__1CF15040" FromRole="Album" ToRole="Cart" />
+    <NavigationProperty Name="OrderDetails" Relationship="MusicStoreDbModel.FK__OrderDeta__Album__22AA2996" FromRole="Album" ToRole="OrderDetails" />
+  </EntityType>
+  <EntityType Name="Cart">
+    <Key>
+      <PropertyRef Name="RecordId" />
+    </Key>
+    <Property Name="RecordId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CartID" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="AlbumId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="DateCreated" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Album" Relationship="MusicStoreDbModel.FK__Cart__AlbumId__1CF15040" FromRole="Cart" ToRole="Album" />
+  </EntityType>
+  <EntityType Name="OrderDetail">
+    <Key>
+      <PropertyRef Name="OrderDetailId" />
+    </Key>
+    <Property Name="OrderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderId" Type="Int32" Nullable="false" />
+    <Property Name="AlbumId" Type="Int32" Nullable="false" />
+    <Property Name="Quantity" Type="Int32" />
+    <Property Name="UnitPrice" Type="Int32" />
+    <NavigationProperty Name="Album" Relationship="MusicStoreDbModel.FK__OrderDeta__Album__22AA2996" FromRole="OrderDetails" ToRole="Album" />
+    <NavigationProperty Name="Order" Relationship="MusicStoreDbModel.FK__OrderDeta__Order__21B6055D" FromRole="OrderDetails" ToRole="Orders" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="150" Unicode="false" FixedLength="false" />
+    <Property Name="LastName" Type="String" MaxLength="150" Unicode="false" FixedLength="false" />
+    <Property Name="Address" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+    <Property Name="City" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="State" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="PostalCode" Type="String" MaxLength="6" Unicode="false" FixedLength="false" />
+    <Property Name="Country" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Phone" Type="String" Nullable="false" MaxLength="15" Unicode="false" FixedLength="false" />
+    <Property Name="Email" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="Total" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="OrderDetails" Relationship="MusicStoreDbModel.FK__OrderDeta__Order__21B6055D" FromRole="Orders" ToRole="OrderDetails" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK__Cart__AlbumId__1CF15040">
+    <End Role="Album" Type="MusicStoreDbModel.Album" Multiplicity="1" />
+    <End Role="Cart" Type="MusicStoreDbModel.Cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Album">
+        <PropertyRef Name="AlbumId" />
+      </Principal>
+      <Dependent Role="Cart">
+        <PropertyRef Name="AlbumId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderDeta__Album__22AA2996">
+    <End Role="Album" Type="MusicStoreDbModel.Album" Multiplicity="1" />
+    <End Role="OrderDetails" Type="MusicStoreDbModel.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Album">
+        <PropertyRef Name="AlbumId" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="AlbumId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__OrderDeta__Order__21B6055D">
+    <End Role="Orders" Type="MusicStoreDbModel.Order" Multiplicity="1" />
+    <End Role="OrderDetails" Type="MusicStoreDbModel.OrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Orders">
+        <PropertyRef Name="OrderId" />
+      </Principal>
+      <Dependent Role="OrderDetails">
+        <PropertyRef Name="OrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

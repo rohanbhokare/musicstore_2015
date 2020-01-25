@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>Music Store - @ViewBag.Title</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        a{
+            color:black;
+        }
+    </style>
+</head>
+<body>
+<table width="100%">
+    <tr>
+        <td width="30%"> <img src="~/Images/images.png" width="280px" height="80px" />       </td>
+        <td width="40%"></td>
+        <td width="30%" style="vertical-align:top">
+            <a href="/Home/Index">Home</a> |
+            <a href="/Home/ShowAll">Store</a> |
+            <a href="/ShoppingCart/Index">Cart</a> |
+            <a href="/StoreManager/Index">Admin</a>
+        </td>
+    </tr>
+</table>
+    <h1>Music Store Application</h1>
+    <hr />
+
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

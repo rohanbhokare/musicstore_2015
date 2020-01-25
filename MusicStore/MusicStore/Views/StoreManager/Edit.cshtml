@@ -1,0 +1,70 @@
+﻿@model MusicStore.Models.Album
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Album</legend>
+
+        @Html.HiddenFor(model => model.AlbumId)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Title)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Title)
+            @Html.ValidationMessageFor(model => model.Title)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.CategoryName)
+        </div>
+        <div class="editor-field">
+            @{
+                string[] Catogries = { "Rock", "Classical", "Jazz", "POP", "Disco", "Latin", "Metal", "Reggae", "Blues" };
+                SelectList obj = new SelectList(Catogries);
+            }
+            @Html.DropDownListFor(model => model.CategoryName,obj)
+            @Html.ValidationMessageFor(model => model.CategoryName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ArtistName)
+        </div>
+        <div class="editor-field">
+            @{
+                string[] ArtistName = { "Raj Lata", "Himanshu Reshamwala", "Vishva Shaker", "Shreen Ghoshal", "Manika", "Sunita Chauhan", "Soniya Nigam"};
+                SelectList Aobj = new SelectList(ArtistName);
+            }
+            @Html.DropDownListFor(model => model.ArtistName,Aobj)
+            @Html.ValidationMessageFor(model => model.ArtistName)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UintPrice)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UintPrice)
+            @Html.ValidationMessageFor(model => model.UintPrice)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

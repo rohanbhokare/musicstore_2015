@@ -1,0 +1,38 @@
+﻿@using MusicStore.Models;
+@model IEnumerable<Cart>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Review your Cart :</h2>
+<a href="/ShoppingCart/Confrm">Check out >></a>
+
+<br />
+<br />
+@{
+    int total = 0;
+    <table border="1">
+             <tr>
+            <th>Album Name</th>
+            <th>Unit Price</th>
+            <th>Quantity</th>
+            <th></th>
+        </tr>
+    @foreach(Cart item in Model)
+    {   
+        <tr>
+            <td>@item.Album.Title</td>
+            <td>@item.Album.UnitPrice</td>
+            <td>@item.Quantity</td>
+            <td><a href="/ShoppingCart/Delete/@item.RecordId"> Remove from Cart</a></td>
+            @{ total = total + (item.Album.UnitPrice * Convert.ToInt32(item.Quantity));}    
+        </tr>
+    }
+          <tr style="background-color:black;color:white;">
+              <td colspan="4"><b>Total : @total</b></td>
+          </tr>
+        @{ Session["Total"] = total; }
+    </table>
+}

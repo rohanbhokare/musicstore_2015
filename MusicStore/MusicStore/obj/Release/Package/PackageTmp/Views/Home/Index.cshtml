@@ -1,0 +1,42 @@
+﻿@model IEnumerable<MusicStore.Models.Album>
+@{
+    
+    ViewBag.Title = "Home";
+    string[] Catogries = { "Rock", "Classical", "Jazz", "POP", "Disco", "Latin", "Metal", "Reggae", "Blues" };
+}
+
+<table width="100%">
+    <tr>
+        <td widht="5%"></td>
+        <td width="10%" style="vertical-align:top">
+            
+                @foreach (string item in Catogries)
+                {
+                    <a href="~/Home/Browse?strCatagory=@item">@item</a><br />
+                }
+            
+        </td>
+        <td width="85%">
+            <img src="~/Images/music-pic.png" width="800px" height="260px" />
+        </td>
+    </tr>
+</table>
+<div>
+    <h3>Top 5 Albums</h3>
+    
+    
+    @{
+        foreach(MusicStore.Models.Album item in Model)
+        {
+            <div style="padding:10px;float:left;text-align:center;">
+            <a href="~/Home/Details/@item.AlbumId">
+                <img src="~/Images/images.jpg" width="150px" height="80px" border="1" /><br />
+                <span>@item.Title</span>
+
+           </a>            
+           </div>
+        }
+    }
+    
+  </>  
+</div>
